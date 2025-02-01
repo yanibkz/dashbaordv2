@@ -1,12 +1,8 @@
-import os
-from dotenv import load_dotenv
+import streamlit as st
+from sqlalchemy import create_engine
 
-# Charger les variables d'environnement
-load_dotenv()
+# Récupérer DATABASE_URL depuis les secrets de Streamlit
+DATABASE_URL = st.secrets["DATABASE_URL"]
 
-# Récupérer l'URL de connexion PostgreSQL
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-# Vérifier que la connexion est bien récupérée
-if DATABASE_URL is None:
-    raise ValueError("❌ ERREUR : La variable d'environnement DATABASE_URL est introuvable. Vérifie ton fichier .env !")
+# Configurer la connexion à PostgreSQL
+engine = create_engine(DATABASE_URL)
